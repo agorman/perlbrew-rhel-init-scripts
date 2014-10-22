@@ -17,7 +17,7 @@ APPNAME=my_daemon
 COMMAND=perl
 SCRIPT=/opt/scripts/my_daemon.pl
 PIDFILE=/var/run/$APPNAME.pid
-OPTIONS="--dont_close_all_files"
+OPTIONS="start --dont_close_all_files"
 
 ###### STOP EDITING ######
 
@@ -34,8 +34,7 @@ start() {
         exit 2;
     fi
     
-    cd $APPDIR
-    daemon $COMMAND $SCRIPT $OPTIONS 2>/dev/null
+    daemon $COMMAND $SCRIPT $OPTIONS
     RETVAL=$?
     
     if [ $RETVAL ]; then
@@ -49,7 +48,7 @@ start() {
 stop() {
     echo -n "Stopping $APPNAME: "
     
-    killproc $APPNAME 2>/dev/null
+    killproc $APPNAME
     echo
 }
 
